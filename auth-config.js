@@ -22,8 +22,8 @@
 
 window.AUTH_CONFIG = {
   // From Supabase → Project Settings → API
-  SUPABASE_URL:      'https://YOUR-PROJECT-REF.supabase.co',
-  SUPABASE_ANON_KEY: 'YOUR_ANON_PUBLIC_KEY_HERE',
+  SUPABASE_URL:      'https://uvujjniuwsgmuxbtbkns.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_FNcwA5AnBmNU9D_KjUAmzQ_BUYUlXj0',
 
   // Where to send users after they sign in
   LOGIN_REDIRECT: 'index.html',
