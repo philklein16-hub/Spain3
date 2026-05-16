@@ -36,5 +36,8 @@ window.AUTH_CONFIG = {
   ALLOW_SIGNUP: true,
 
   // Allow "Forgot password?" flow (sends reset email)
-  ALLOW_RESET: true
+  ALLOW_RESET: true,
+
+  // Allow passwordless magic-link sign-in (one-tap link emailed to user)
+  ALLOW_MAGIC_LINK: true
 };

@@ -73,6 +73,17 @@
       });
     },
 
+    sendMagicLink: function (email) {
+      var opts = {
+        emailRedirectTo: location.origin + basePath() + 'login.html'
+      };
+      // If signups are disabled in config, don't let magic links create new users either
+      if (cfg.ALLOW_SIGNUP === false) {
+        opts.shouldCreateUser = false;
+      }
+      return client.auth.signInWithOtp({ email: email, options: opts });
+    },
+
     updatePassword: function (newPassword) {
       return client.auth.updateUser({ password: newPassword });
     },

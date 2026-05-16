@@ -185,6 +185,7 @@
 
   <div class="login-tabs" role="tablist">
     <button type="button" data-mode="signin" class="active" role="tab">Sign in</button>
+    <button type="button" data-mode="magic"  role="tab">Magic link</button>
     <button type="button" data-mode="signup" role="tab">Create account</button>
     <button type="button" data-mode="reset"  role="tab">Reset</button>
   </div>
@@ -197,6 +198,15 @@
     <button type="submit">Sign in</button>
     <div class="login-helper">
       <a data-mode="reset">Forgot password?</a>
+    </div>
+  </form>
+
+  <form id="form-magic" class="login-form" autocomplete="on" novalidate>
+    <label for="magic-email">Email</label>
+    <input id="magic-email" name="email" type="email" required autocomplete="email" inputmode="email">
+    <button type="submit">Send magic link</button>
+    <div class="login-helper">
+      Prefer a password? <a data-mode="signin">Sign in normally</a>
     </div>
   </form>
 
@@ -283,6 +293,9 @@
         document.querySelector('[data-mode="reset"]').style.display = 'none';
         document.querySelectorAll('a[data-mode="reset"]').forEach(function (a) { a.style.display = 'none'; });
       }
+      if (window.AUTH_CONFIG.ALLOW_MAGIC_LINK === false) {
+        document.querySelector('[data-mode="magic"]').style.display = 'none';
+      }
     }
   });
 
@@ -350,6 +363,21 @@
     });
   });
 
+  // --- Magic link (passwordless) ---
+  document.getElementById('form-magic').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearMessage();
+    var form = this;
+    var email = form.email.value.trim();
+    withBusy(form, 'Sending…', function () {
+      return window.SpainAuth.sendMagicLink(email).then(function (res) {
+        if (res.error) { setMessage(res.error.message); return; }
+        setMessage('Check your email — tap the link to sign in. (Also check spam.)', 'success');
+        form.email.value = '';
+      });
+    });
+  });
+
   // --- Password reset request ---
   document.getElementById('form-reset').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -389,6 +417,19 @@
       });
     }
   }, 50);
+
+  // Catch magic-link arrivals: when the user clicks the email link,
+  // they land here with #access_token=... in the URL hash. The SDK
+  // parses it asynchronously and fires SIGNED_IN — redirect then.
+  function attachAuthListener() {
+    if (!window.SpainAuth) { setTimeout(attachAuthListener, 50); return; }
+    window.SpainAuth.onAuthChange(function (event, session) {
+      if (event === 'SIGNED_IN' && session) {
+        location.replace(getRedirect());
+      }
+    });
+  }
+  attachAuthListener();
 </script>
 </body>
 </html>
