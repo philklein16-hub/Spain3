@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spain — A Twentieth Anniversary Journey · Phil & Sarah Klein</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { background: var(--navy); }
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--cream);
+    background:
+      linear-gradient(180deg, rgba(26,31,46,0.55) 0%, rgba(26,31,46,0.65) 50%, rgba(26,31,46,0.9) 100%),
+      url('https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=2400&q=80') center/cover no-repeat,
+      linear-gradient(135deg, #2a1f1a 0%, #1a1f2e 50%, #3a2438 100%);
+    background-attachment: fixed, fixed, scroll;
+    overflow: hidden;
+  }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 0%, rgba(26,31,46,0.4) 80%); }
+  .hero-content { position: relative; z-index: 2; padding: 80px 24px; max-width: 900px; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; font-weight: 500; }
+  .hero-eyebrow::before, .hero-eyebrow::after { content: '✦'; margin: 0 12px; color: var(--gold-light); }
+  .hero h1 { font-family: Georgia, serif; font-size: clamp(4rem, 14vw, 8rem); font-weight: 400; letter-spacing: 12px; text-transform: uppercase; margin-bottom: 16px; text-shadow: 0 6px 32px rgba(0,0,0,0.6); line-height: 1; }
+  .hero-subtitle { font-family: Georgia, serif; font-size: clamp(1.1rem, 2.8vw, 1.6rem); color: var(--gold-light); font-style: italic; margin-bottom: 36px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+  .hero-divider { width: 80px; height: 1px; background: var(--gold); margin: 0 auto 32px; opacity: 0.6; }
+  .hero-names { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); margin-bottom: 12px; }
+  .hero-dates { font-family: Georgia, serif; font-size: 18px; letter-spacing: 3px; color: var(--gold); margin-bottom: 48px; }
+  .hero-meta-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 48px; }
+  .hero-pill { background: rgba(26,31,46,0.5); border: 1px solid rgba(201,149,74,0.3); backdrop-filter: blur(6px); padding: 8px 18px; border-radius: 2px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); }
+  .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; animation: bounce 2s infinite; z-index: 2; }
+  .hero-scroll::after { content: '↓'; display: block; font-size: 20px; margin-top: 8px; }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-6px); } }
+
+  .cities-section { background: var(--cream); padding: 64px 0; }
+  .section-intro { text-align: center; max-width: 700px; margin: 0 auto 48px; padding: 0 20px; }
+  .section-intro h2 { font-family: Georgia, serif; font-size: 2.2rem; color: var(--navy); font-weight: 400; margin-bottom: 12px; }
+  .section-intro .ornament { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 16px; }
+  .section-intro p { color: var(--text-light); font-size: 15px; font-style: italic; }
+  .cities-grid { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .city-card { background: white; border-radius: 4px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .city-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+  .city-card-image { height: 200px; background-size: cover; background-position: center; background-color: var(--navy); position: relative; }
+  .city-card-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(26,31,46,0.6) 100%); }
+  .city-card-image .day-num { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--navy); padding: 4px 10px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; z-index: 2; border-radius: 2px; }
+  .city-card-image .city-name-overlay { position: absolute; bottom: 12px; left: 16px; z-index: 2; color: var(--cream); font-family: Georgia, serif; font-size: 1.5rem; letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+  .city-card-body { padding: 18px 22px; flex: 1; display: flex; flex-direction: column; }
+  .city-card-dates { font-size: 11px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
+  .city-card-hotel { font-size: 14px; color: var(--navy); font-weight: 600; margin-bottom: 10px; }
+  .city-card-highlight { font-size: 13px; color: var(--text-light); font-style: italic; border-left: 2px solid var(--gold); padding-left: 10px; margin-bottom: 14px; flex: 1; }
+  .city-card-cta { color: var(--burgundy); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; }
+  .city-card:hover .city-card-cta { color: var(--gold); }
+
+  .city-img-madrid { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.3) 100%), url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80'), linear-gradient(135deg, #c98d2a, #7a1c2e); }
+  .city-img-toledo { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.3) 100%), url('https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=1200&q=80'), linear-gradient(135deg, #8b5a2b, #3a2418); }
+  .city-img-granada { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.35) 100%), url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=85'), linear-gradient(135deg, #b8860b, #4a2438); background-position: center 35%; }
+  .city-img-sevilla { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.35) 100%), url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Alcazar_Sevilla_Patio_de_las_Doncellas_2.jpg/1280px-Alcazar_Sevilla_Patio_de_las_Doncellas_2.jpg'), linear-gradient(135deg, #d4a96a, #7a1c2e); background-position: center; }
+  .city-img-barcelona { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.3) 100%), url('https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1200&q=80'), linear-gradient(135deg, #4a6741, #1a1f2e); }
+  .city-img-girona { background-image: linear-gradient(180deg, transparent 0%, rgba(26,31,46,0.3) 100%), url('https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1200&q=80'), linear-gradient(135deg, #3a4a5c, #1a1f2e); }
+
+  .journey-stats { background: var(--navy); color: var(--cream); padding: 56px 24px; text-align: center; }
+  .stats-grid { max-width: 1000px; margin: 32px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px; }
+  .stat .number { font-family: Georgia, serif; font-size: 3rem; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .stat .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,232,0.7); }
+  .journey-stats h2 { font-family: Georgia, serif; font-size: 2rem; font-weight: 400; color: var(--cream); }
+  .journey-stats .ornament { color: var(--gold); font-size: 14px; margin: 12px 0 20px; }
+
+  @media (max-width: 600px) { .hero { background-attachment: scroll, scroll, scroll; } .hero h1 { letter-spacing: 6px; } .stats-grid { gap: 20px; } .stat .number { font-size: 2.2rem; } }
+</style>
+<script src="auth-guard.js"></script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">A Twentieth Anniversary Journey</div>
+    <h1>Spain</h1>
+    <div class="hero-subtitle">Madrid · Toledo · Granada · Sevilla · Girona · Barcelona</div>
+    <div class="hero-divider"></div>
+    <div class="hero-names">Phil &amp; Sarah Klein</div>
+    <div class="hero-dates">July 26 — August 9, 2026</div>
+    <div class="hero-meta-pills">
+      <span class="hero-pill">15 Days</span>
+      <span class="hero-pill">6 Cities</span>
+      <span class="hero-pill">Memorable Dining Throughout</span>
+      <span class="hero-pill">20 Years of Marriage</span>
+    </div>
+  </div>
+  <div class="hero-scroll">Begin the Journey</div>
+</div>
+
+<div class="nav-wrapper">
+  <nav class="nav">
+    <a href="index.html" class="brand">✦ Spain 2026</a>
+    <a href="madrid.html">Madrid</a>
+    <a href="toledo.html">Toledo</a>
+    <a href="granada.html">Granada</a>
+    <a href="sevilla.html">Sevilla</a>
+    <a href="barcelona.html">Barcelona</a>
+    <a href="girona.html">Girona</a>
+    <a href="dining.html" class="maps-link">✦ Dining</a>
+    <a href="map.html" class="maps-link">✦ Maps</a>
+  </nav>
+</div>
+
+<div class="alerts-bar">
+  <strong>⚠ Action Required:</strong>
+  <span class="alert-badge">Alhambra — Submit passport details to Feel the City Tours</span>
+  <span class="alert-badge">Enroll Priority Pass via Amex Platinum before travel</span>
+  <span class="alert-badge">Phil &amp; Sarah check in SEPARATELY for IB0326</span>
+</div>
+
+<section class="cities-section">
+  <div class="section-intro">
+    <h2>The Itinerary</h2>
+    <div class="ornament"></div>
+    <p>Six destinations chosen for their cultural weight, romantic atmosphere, and gastronomic excellence — woven into fifteen days that honor twenty years.</p>
+  </div>
+
+  <div class="cities-grid">
+    <a href="madrid.html" class="city-card">
+      <div class="city-card-image city-img-madrid">
+        <span class="day-num">Days 1–5</span>
+        <span class="city-name-overlay">Madrid</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">July 26 – 30 · 4 Nights</div>
+        <div class="city-card-hotel">JW Marriott Hotel Madrid</div>
+        <div class="city-card-highlight">Royal Palace · Prado · Reina Sofía · ✦ Angelita anniversary dinner</div>
+        <span class="city-card-cta">View Madrid →</span>
+      </div>
+    </a>
+
+    <a href="toledo.html" class="city-card">
+      <div class="city-card-image city-img-toledo">
+        <span class="day-num">Day 3</span>
+        <span class="city-name-overlay">Toledo</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">July 28 · Day Trip</div>
+        <div class="city-card-hotel">From Madrid · AVE from Atocha</div>
+        <div class="city-card-highlight">Cathedral · Jewish Quarter · El Greco's Burial of the Count of Orgaz</div>
+        <span class="city-card-cta">View Toledo →</span>
+      </div>
+    </a>
+
+    <a href="granada.html" class="city-card">
+      <div class="city-card-image city-img-granada">
+        <span class="day-num">Days 5–7</span>
+        <span class="city-name-overlay">Granada</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">July 30 – August 1 · 2 Nights</div>
+        <div class="city-card-hotel">Palacio de Santa Paula</div>
+        <div class="city-card-highlight">Alhambra at dawn · Hammam Al Ándalus · Carmen Mirador de Aixa rooftop</div>
+        <span class="city-card-cta">View Granada →</span>
+      </div>
+    </a>
+
+    <a href="sevilla.html" class="city-card">
+      <div class="city-card-image city-img-sevilla">
+        <span class="day-num">Days 7–10</span>
+        <span class="city-name-overlay">Sevilla</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">August 1 – 4 · 3 Nights</div>
+        <div class="city-card-hotel">Hotel Alfonso XIII — Luxury Collection</div>
+        <div class="city-card-highlight">La Casa del Flamenco · Royal Alcázar · 15th-century Santa Cruz</div>
+        <span class="city-card-cta">View Sevilla →</span>
+      </div>
+    </a>
+
+    <a href="barcelona.html" class="city-card">
+      <div class="city-card-image city-img-barcelona">
+        <span class="day-num">Days 10–15</span>
+        <span class="city-name-overlay">Barcelona</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">August 4 – 9 · 5 Nights</div>
+        <div class="city-card-hotel">Cotton House Hotel — Autograph Collection</div>
+        <div class="city-card-highlight">Sagrada Família · Park Güell · Runner Bean private tour · Petit Comité</div>
+        <span class="city-card-cta">View Barcelona →</span>
+      </div>
+    </a>
+
+    <a href="girona.html" class="city-card">
+      <div class="city-card-image city-img-girona">
+        <span class="day-num">Day 12</span>
+        <span class="city-name-overlay">Girona</span>
+      </div>
+      <div class="city-card-body">
+        <div class="city-card-dates">August 6 · Day Trip</div>
+        <div class="city-card-hotel">From Barcelona · 38 min train</div>
+        <div class="city-card-highlight">Eiffel Bridge · El Call Jewish Quarter · Cathedral · Medieval walls</div>
+        <span class="city-card-cta">View Girona →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="journey-stats">
+  <h2>The Numbers</h2>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="stats-grid">
+    <div class="stat"><div class="number">20</div><div class="label">Years of Marriage</div></div>
+    <div class="stat"><div class="number">15</div><div class="label">Days in Spain</div></div>
+    <div class="stat"><div class="number">6</div><div class="label">Cities</div></div>
+    <div class="stat"><div class="number">22</div><div class="label">Confirmed Bookings</div></div>
+    <div class="stat"><div class="number">✦</div><div class="label">Anniversary Moments</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="ornament">✦</div>
+  <div class="footer-line">Twenty years. Six cities. Fifteen days.</div>
+  <div>Phil &amp; Sarah Klein · July 26 – August 9, 2026 · ¡Feliz aniversario!</div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const scroll = document.querySelector('.hero-scroll');
+    if (scroll) scroll.style.opacity = Math.max(0, 1 - window.scrollY / 200);
+  });
+</script>
+</body>
+</html>

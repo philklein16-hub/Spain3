@@ -1,0 +1,320 @@
+/* ============================================================
+   SHARED STYLES — Spain Anniversary Journey
+   ============================================================ */
+:root {
+  --navy: #1a1f2e;
+  --navy-light: #252c3f;
+  --cream: #f5f0e8;
+  --cream-dark: #ede7d8;
+  --gold: #c9954a;
+  --gold-light: #d4a96a;
+  --burgundy: #7a1c2e;
+  --burgundy-light: #9b2437;
+  --olive: #4a6741;
+  --slate: #3a4a5c;
+  --alert-red: #8b1a2e;
+  --alert-bg: #fdf0ef;
+  --confirmed-green: #2e6b3a;
+  --confirmed-bg: #f0f7f0;
+  --text: #2a2a2a;
+  --text-light: #555;
+  --border: #ddd5c4;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--cream); color: var(--text); line-height: 1.6; font-size: 15px;
+}
+
+/* ============================================================
+   AUTH — no-flash gate + user pill in nav
+   ============================================================ */
+/* While auth is resolving, hide the entire page (no content flash).
+   auth.js removes this class once a valid session is confirmed.
+   If JS fails to load, the page stays blank — fail closed. */
+html.auth-pending { visibility: hidden; }
+html.auth-pending::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: #1a1f2e;
+  visibility: visible;
+  z-index: 99999;
+}
+
+/* User pill — injected at the end of .nav by auth.js */
+.auth-pill {
+  display: flex; align-items: center; gap: 10px;
+  margin-left: auto;
+  padding: 0 14px 0 18px;
+  white-space: nowrap;
+}
+.auth-pill-email {
+  color: var(--gold-light);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.auth-pill-signout {
+  background: transparent;
+  border: 1px solid rgba(201,149,74,0.4);
+  color: var(--gold);
+  padding: 5px 11px;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.auth-pill-signout:hover {
+  background: rgba(201,149,74,0.12);
+  border-color: var(--gold);
+}
+.auth-pill-signout:disabled { opacity: 0.5; cursor: wait; }
+
+@media (max-width: 600px) {
+  .auth-pill { padding: 0 10px; gap: 6px; }
+  .auth-pill-email { max-width: 80px; font-size: 10px; }
+  .auth-pill-signout { padding: 4px 8px; font-size: 9px; }
+}
+img { max-width: 100%; display: block; }
+a { color: var(--burgundy); }
+
+/* NAV */
+.nav-wrapper { background: var(--navy); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--gold); }
+.nav { display: flex; overflow-x: auto; scrollbar-width: none; max-width: 1200px; margin: 0 auto; align-items: center; }
+.nav::-webkit-scrollbar { display: none; }
+.nav .brand { color: var(--gold); font-family: Georgia, serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; padding: 14px 18px; white-space: nowrap; border-right: 1px solid rgba(201,149,74,0.2); text-decoration: none; }
+.nav a { color: rgba(245,240,232,0.7); text-decoration: none; padding: 14px 16px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; transition: color 0.2s, background 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+.nav a:hover, .nav a.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(201,149,74,0.08); }
+.nav a.maps-link { color: var(--gold); font-weight: 600; }
+
+/* CITY HERO */
+.city-hero { position: relative; min-height: 60vh; display: flex; align-items: flex-end; justify-content: center; background-size: cover; background-position: center; background-color: var(--navy); color: var(--cream); text-align: center; overflow: hidden; }
+.city-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26,31,46,0.35) 0%, rgba(26,31,46,0.55) 60%, rgba(26,31,46,0.95) 100%); }
+.city-hero-content { position: relative; z-index: 2; padding: 80px 24px 56px; max-width: 800px; }
+.city-hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+.city-hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 9vw, 6rem); font-weight: 400; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 12px; text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+.city-hero-subtitle { font-family: Georgia, serif; font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--gold-light); font-style: italic; margin-bottom: 24px; }
+.city-hero-meta { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; padding: 14px 28px; border: 1px solid rgba(201,149,74,0.4); border-radius: 2px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); background: rgba(26,31,46,0.4); backdrop-filter: blur(6px); }
+.city-hero-meta span { display: flex; align-items: center; gap: 6px; }
+.city-hero-meta .dot { color: var(--gold); }
+
+/* ALERTS */
+.alerts-bar { background: var(--alert-red); color: white; padding: 12px 24px; display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
+.alerts-bar strong { font-weight: 700; }
+.alert-badge { background: rgba(255,255,255,0.2); border-radius: 3px; padding: 2px 8px; font-size: 11px; white-space: nowrap; }
+
+/* CONTAINER */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+.section-title { font-family: Georgia, serif; font-size: 1.7rem; color: var(--navy); margin-bottom: 8px; font-weight: 400; }
+.section-divider { width: 48px; height: 3px; background: var(--gold); margin-bottom: 28px; }
+
+/* DAY BLOCKS */
+.day { margin-bottom: 40px; }
+.day-header { background: var(--cream-dark); border-left: 4px solid var(--gold); padding: 14px 18px; margin-bottom: 16px; border-radius: 0 4px 4px 0; }
+.day-header h3 { font-family: Georgia, serif; font-size: 1.15rem; color: var(--navy); font-weight: 600; }
+.day-header .budget { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+.activity { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 16px 20px; margin-bottom: 12px; }
+.activity.confirmed { border-left: 4px solid var(--confirmed-green); background: var(--confirmed-bg); }
+.activity.alert { border-left: 4px solid var(--alert-red); background: var(--alert-bg); }
+.activity.anniversary { border-left: 4px solid var(--gold); background: #fdf9f0; }
+.activity.dining { border-left: 4px solid var(--burgundy); }
+.activity.transit-info { border-left: 4px solid var(--slate); background: #f8f9fa; }
+.activity-tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; display: inline-block; padding: 2px 8px; border-radius: 2px; }
+.tag-confirmed { background: var(--confirmed-green); color: white; }
+.tag-alert { background: var(--alert-red); color: white; }
+.tag-anniversary { background: var(--gold); color: white; }
+.tag-dining { background: var(--burgundy); color: white; }
+.tag-info { background: var(--slate); color: white; }
+.activity h4 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.activity .meta { font-size: 13px; color: #3a3a3a; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px 16px; font-weight: 500; }
+.activity p { font-size: 14px; color: var(--text); line-height: 1.65; }
+.activity .action { margin-top: 12px; padding: 12px 14px; background: #fff7f5; border: 1px solid #e8b8b8; border-left: 4px solid var(--alert-red); border-radius: 3px; font-size: 13.5px; color: #5e1020; font-weight: 600; line-height: 1.5; }
+.activity .action a { color: var(--alert-red); }
+.michelin { color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+
+/* CONTACT / BOOKING REFERENCE — high-contrast */
+.booking-ref { display: inline-block; background: var(--navy); color: #ffffff; font-family: 'SF Mono', 'Courier New', monospace; font-size: 12.5px; padding: 5px 11px; border-radius: 3px; margin-top: 8px; letter-spacing: 0.3px; border-left: 3px solid var(--gold); }
+.booking-ref strong, .booking-ref .gold { color: var(--gold); }
+
+/* INLINE LINKS — universal in-content link style */
+.activity a:not(.action a), .restaurant-note a, .quick-info a, .transit-value a, .anniversary-moment a {
+  color: var(--burgundy);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(122,28,46,0.5);
+  font-weight: 500;
+  transition: color 0.15s, border-color 0.15s;
+}
+.activity a:hover, .restaurant-note a:hover, .quick-info a:hover, .transit-value a:hover, .anniversary-moment a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.confirmed a { color: var(--confirmed-green); border-bottom-color: rgba(46,107,58,0.5); }
+.confirmed a:hover { color: #1a4a25; border-bottom-color: #1a4a25; }
+.anniversary a { color: var(--burgundy); }
+
+/* CONTACT BLOCK — for prominent phone/email/address info */
+.contact-block { background: #fcfaf5; border: 1px solid #e8dfc8; border-left: 4px solid var(--gold); border-radius: 3px; padding: 12px 14px; margin-top: 10px; font-size: 13px; line-height: 1.7; }
+.contact-block .contact-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-right: 6px; }
+.contact-block a { font-weight: 600; }
+
+/* ============================================================
+   DINING PAGE — neighbourhood food guide
+   ============================================================ */
+.dining-subnav { background: var(--navy-light); border-bottom: 1px solid rgba(201,149,74,0.3); position: sticky; top: 49px; z-index: 90; }
+.dining-subnav-inner { max-width: 1000px; margin: 0 auto; display: flex; overflow-x: auto; scrollbar-width: none; padding: 0 12px; }
+.dining-subnav-inner::-webkit-scrollbar { display: none; }
+.dining-subnav a { color: rgba(245,240,232,0.7); text-decoration: none; padding: 12px 18px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
+.dining-subnav a:hover { color: var(--gold); background: rgba(201,149,74,0.06); }
+.dining-subnav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* City section heading on dining page */
+.dining-city-header { background: var(--navy); color: var(--cream); padding: 28px 32px; border-radius: 4px; margin: 48px 0 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-left: 4px solid var(--gold); }
+.dining-city-header h2 { font-family: Georgia, serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; letter-spacing: 4px; text-transform: uppercase; }
+.dining-city-meta { font-size: 12px; color: var(--gold-light); letter-spacing: 1px; text-align: right; }
+
+/* Day banner within a city */
+.dining-day { background: var(--cream-dark); border-left: 3px solid var(--gold); padding: 12px 18px; margin: 28px 0 14px; border-radius: 0 4px 4px 0; }
+.dining-day .day-label { font-family: Georgia, serif; font-size: 1.05rem; color: var(--navy); font-weight: 600; }
+.dining-day .day-context { font-size: 12px; color: var(--text-light); margin-top: 2px; letter-spacing: 0.5px; }
+
+/* Meal section header */
+.meal-section { background: var(--slate); color: var(--cream); padding: 8px 16px; border-radius: 3px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin: 18px 0 12px; display: inline-block; }
+.meal-section.dinner { background: var(--burgundy); }
+.meal-section.tapas { background: #5a3a4a; }
+.meal-section.cocktails { background: var(--burgundy-light); }
+.meal-section.crawl { background: var(--burgundy); }
+
+/* Restaurant card on dining page */
+.dining-entry { background: #fdfaf2; border: 1px solid var(--border); border-radius: 4px; padding: 18px 22px; margin-bottom: 14px; }
+.dining-entry .dining-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.dining-entry .dining-name { font-family: Georgia, serif; font-size: 1.15rem; color: var(--navy); font-weight: 700; }
+.dining-entry .dining-name a { color: var(--navy); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+.dining-entry .dining-name a:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.dining-entry .dining-price { font-size: 13px; color: var(--burgundy); font-weight: 700; white-space: nowrap; }
+.dining-entry .dining-address { font-size: 13px; color: #444; margin-bottom: 4px; font-weight: 500; }
+.dining-entry .dining-address a { color: var(--burgundy); text-decoration: none; border-bottom: 1px dotted rgba(122,28,46,0.4); }
+.dining-entry .dining-hours { font-size: 12px; color: var(--text-light); margin-bottom: 10px; font-style: italic; }
+.dining-entry .dining-hours .open-flag { color: var(--confirmed-green); font-weight: 700; font-style: normal; }
+.dining-entry .dining-hours .closed-flag { color: var(--alert-red); font-weight: 700; font-style: normal; }
+.dining-entry .dining-desc { font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+.dining-entry .dining-tip { font-size: 13px; color: var(--text-light); padding: 8px 12px; background: var(--cream); border-left: 3px solid var(--gold); border-radius: 0 3px 3px 0; margin-top: 10px; line-height: 1.5; }
+.dining-entry .dining-closed-warning { font-size: 13px; background: var(--alert-bg); border-left: 3px solid var(--alert-red); color: #5e1020; padding: 8px 12px; border-radius: 0 3px 3px 0; margin: 8px 0 12px; font-weight: 600; }
+
+/* Sarah's safe dishes — green callout */
+.sarah-safe { background: #e8f4e8; border: 1px solid #b8d8b8; border-left: 4px solid var(--confirmed-green); border-radius: 3px; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: #1f4a2a; line-height: 1.55; }
+.sarah-safe .sarah-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--confirmed-green); font-weight: 700; margin-right: 6px; }
+.sarah-safe strong { color: #1a3a20; }
+
+/* CONFIRMED indicator on dining */
+.dining-entry.confirmed-dining { background: #f4faf4; border-left: 4px solid var(--confirmed-green); }
+.dining-entry .confirmed-stamp { display: inline-block; background: var(--confirmed-green); color: white; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; padding: 2px 8px; border-radius: 2px; margin-left: 8px; }
+
+/* TAPAS CRAWL container */
+.crawl { background: linear-gradient(180deg, #fdf6f3 0%, #fbf2ee 100%); border: 1px solid #e8c8c4; border-radius: 6px; padding: 20px 22px; margin-bottom: 24px; }
+.crawl-intro { font-size: 13px; color: var(--burgundy); font-weight: 600; margin-bottom: 14px; line-height: 1.6; padding-bottom: 12px; border-bottom: 1px dashed rgba(122,28,46,0.3); }
+
+/* Crawl stop card */
+.crawl-stop { background: white; border: 1px solid #e8d4d0; border-radius: 4px; padding: 14px 18px; margin-bottom: 8px; }
+.crawl-stop-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+.crawl-stop-badge { background: var(--burgundy); color: white; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; padding: 4px 10px; border-radius: 2px; white-space: nowrap; }
+.crawl-stop-name { font-family: Georgia, serif; font-size: 1.05rem; color: var(--navy); font-weight: 700; }
+.crawl-stop-name a { color: var(--navy); text-decoration: none; border-bottom: 1px dotted var(--burgundy); }
+.crawl-stop-name a:hover { color: var(--burgundy); }
+.crawl-stop-addr { font-size: 12px; color: var(--text-light); font-style: italic; }
+.crawl-stop-order { font-size: 13.5px; color: var(--text); line-height: 1.55; margin: 6px 0 10px; }
+.crawl-stop-order strong { color: var(--burgundy); }
+.crawl-stop-tip { font-size: 12.5px; color: var(--text-light); padding-left: 10px; border-left: 2px solid var(--gold); line-height: 1.5; }
+
+/* Walking arrow between stops */
+.crawl-walk { color: var(--burgundy); font-size: 12.5px; font-weight: 600; padding: 8px 0 14px; margin-left: 8px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.3px; }
+.crawl-walk::before { content: '➡'; font-size: 14px; }
+
+/* Granada tradition / Seville tapas key callout */
+.tradition-callout { background: linear-gradient(135deg, #fdf9f0, #fef6e4); border: 1px solid rgba(201,149,74,0.4); border-radius: 4px; padding: 16px 20px; margin-bottom: 20px; font-size: 13.5px; color: #4a3a18; line-height: 1.65; position: relative; }
+.tradition-callout strong { color: var(--burgundy); }
+.tradition-callout .tradition-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
+
+/* Dining intro / hero */
+.dining-hero { background: var(--navy); color: var(--cream); padding: 56px 24px 40px; text-align: center; border-bottom: 2px solid var(--gold); }
+.dining-hero h1 { font-family: Georgia, serif; font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 400; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 12px; }
+.dining-hero .hero-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.dining-hero .hero-sub { font-family: Georgia, serif; font-style: italic; color: var(--gold-light); font-size: clamp(0.95rem, 2vw, 1.15rem); max-width: 700px; margin: 0 auto; }
+.dining-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(201,149,74,0.3); }
+.dining-legend span { font-size: 11px; letter-spacing: 1px; color: rgba(245,240,232,0.85); display: flex; align-items: center; gap: 8px; }
+.dining-legend .dot { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.dining-legend .dot-green { background: #b8d8b8; border: 1.5px solid var(--confirmed-green); }
+.dining-legend .dot-pink { background: #fdf6f3; border: 1.5px solid #d8a8a4; }
+.dining-legend .dot-gold { background: var(--gold); }
+
+@media (max-width: 600px) {
+  .dining-subnav { top: 49px; }
+  .dining-city-header { padding: 20px 22px; }
+  .dining-city-header h2 { letter-spacing: 2px; }
+}
+
+/* ANNIVERSARY MOMENT */
+.anniversary-moment { background: linear-gradient(135deg, #fdf9f0 0%, #fef6e4 100%); border: 1px solid rgba(201,149,74,0.4); border-radius: 4px; padding: 22px 26px; margin: 24px 0; position: relative; }
+.anniversary-moment::before { content: '✦'; position: absolute; top: -12px; left: 26px; background: var(--gold); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.anniversary-moment p { font-style: italic; color: var(--burgundy); font-size: 14px; line-height: 1.7; }
+
+/* QUICK INFO */
+.quick-info { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; margin: -40px auto 28px; max-width: 960px; position: relative; z-index: 3; box-shadow: 0 8px 24px rgba(0,0,0,0.08); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; }
+.quick-info-item .label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
+.quick-info-item .value { font-size: 14px; color: var(--navy); font-weight: 600; }
+.quick-info-item .sub { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+/* DINING */
+.dining-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.dining-card { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 18px; border-top: 3px solid var(--burgundy); }
+.dining-card .restaurant-name { font-weight: 700; font-size: 1.05rem; color: var(--navy); margin-bottom: 4px; }
+.dining-card .restaurant-name a { color: var(--navy); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+.dining-card .restaurant-name a:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.dining-card .restaurant-meta { font-size: 13px; color: #3a3a3a; margin-bottom: 10px; font-weight: 500; }
+.dining-card .restaurant-note { font-size: 13px; color: var(--text); background: var(--cream); padding: 8px 12px; border-radius: 3px; margin-top: 10px; line-height: 1.5; }
+.dining-card .restaurant-note a { color: var(--burgundy); text-decoration: none; border-bottom: 1px dotted rgba(122,28,46,0.5); font-weight: 600; }
+.dining-card .restaurant-note a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.dining-card .restaurant-note.confirmed-note { background: var(--confirmed-bg); color: #1a4a25; font-weight: 600; }
+.dining-card .restaurant-note.confirmed-note a { color: #1a4a25; border-bottom-color: rgba(46,107,58,0.5); }
+
+/* TRANSIT */
+.transit-city { background: white; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+.transit-city-header { background: var(--slate); color: var(--cream); padding: 12px 20px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.transit-row { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--border); font-size: 13px; }
+.transit-row:last-child { border-bottom: none; }
+.transit-label { background: var(--cream); padding: 10px 16px; font-weight: 600; font-size: 12px; color: var(--text-light); border-right: 1px solid var(--border); }
+.transit-value { padding: 10px 16px; color: var(--text); }
+
+/* BACK TO TOP */
+.back-to-top { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: var(--gold); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; text-decoration: none; opacity: 0; transition: opacity 0.3s; z-index: 50; }
+.back-to-top.visible { opacity: 1; }
+
+/* FOOTER */
+.footer { background: var(--navy); color: rgba(245,240,232,0.6); text-align: center; padding: 40px 24px; font-size: 12px; letter-spacing: 1px; }
+.footer .ornament { color: var(--gold); font-family: Georgia, serif; font-size: 16px; margin-bottom: 12px; }
+.footer-line { color: rgba(245,240,232,0.85); margin-bottom: 6px; }
+
+/* MAP CTA */
+.map-cta { background: var(--navy); color: var(--cream); border-radius: 4px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 28px 0; border-left: 3px solid var(--gold); flex-wrap: wrap; }
+.map-cta .text { flex: 1; min-width: 200px; }
+.map-cta .text-title { font-family: Georgia, serif; font-size: 1.05rem; color: var(--gold); margin-bottom: 4px; }
+.map-cta .text-sub { font-size: 13px; color: rgba(245,240,232,0.75); }
+.map-cta a { background: var(--gold); color: var(--navy); padding: 10px 20px; border-radius: 3px; text-decoration: none; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; transition: background 0.2s; }
+.map-cta a:hover { background: var(--gold-light); }
+
+@media (max-width: 600px) {
+  .quick-info { margin: -24px 16px 20px; padding: 18px 20px; }
+  .transit-row { grid-template-columns: 1fr; }
+  .transit-label { border-right: none; border-bottom: 1px solid var(--border); }
+  .city-hero-content { padding: 60px 18px 40px; }
+}

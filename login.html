@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in · Spain Anniversary Journey</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      linear-gradient(180deg, rgba(26,31,46,0.85) 0%, rgba(26,31,46,0.95) 100%),
+      url('https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat,
+      linear-gradient(135deg, #2a1f1a 0%, #1a1f2e 50%, #3a2438 100%);
+    background-attachment: fixed;
+  }
+  .login-card {
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 40px 36px 32px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border-top: 4px solid var(--gold);
+  }
+  .login-brand {
+    text-align: center;
+    color: var(--gold);
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .login-title {
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .login-tag {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin-bottom: 28px;
+  }
+  .login-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--cream-dark);
+    border-radius: 4px;
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+  .login-tabs button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px 6px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+  }
+  .login-tabs button:hover { color: var(--navy); }
+  .login-tabs button.active {
+    background: var(--navy);
+    color: var(--gold);
+  }
+  .login-form { display: none; }
+  .login-form.active { display: block; }
+  .login-form label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  .login-form input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .login-form input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,149,74,0.15);
+  }
+  .login-form button[type="submit"] {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px 18px;
+    background: var(--navy);
+    color: var(--gold);
+    border: none;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .login-form button[type="submit"]:hover { background: var(--navy-light); }
+  .login-form button[type="submit"]:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+  }
+  .login-helper {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .login-helper a {
+    color: var(--burgundy);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(122,28,46,0.4);
+    cursor: pointer;
+  }
+  .login-helper a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  .login-message {
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1.5;
+    display: none;
+  }
+  .login-message.error {
+    display: block;
+    background: var(--alert-bg);
+    border: 1px solid #e8b8b8;
+    border-left: 4px solid var(--alert-red);
+    color: #5e1020;
+  }
+  .login-message.success {
+    display: block;
+    background: var(--confirmed-bg);
+    border: 1px solid #b8d8b8;
+    border-left: 4px solid var(--confirmed-green);
+    color: #1a4a25;
+  }
+  .login-info {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="login-brand">✦</div>
+  <h1 class="login-title">Spain 2026</h1>
+  <div class="login-tag">A Twentieth Anniversary Journey</div>
+
+  <div class="login-tabs" role="tablist">
+    <button type="button" data-mode="signin" class="active" role="tab">Sign in</button>
+    <button type="button" data-mode="signup" role="tab">Create account</button>
+    <button type="button" data-mode="reset"  role="tab">Reset</button>
+  </div>
+
+  <form id="form-signin" class="login-form active" autocomplete="on" novalidate>
+    <label for="signin-email">Email</label>
+    <input id="signin-email" name="email" type="email" required autocomplete="email" inputmode="email">
+    <label for="signin-password">Password</label>
+    <input id="signin-password" name="password" type="password" required autocomplete="current-password" minlength="6">
+    <button type="submit">Sign in</button>
+    <div class="login-helper">
+      <a data-mode="reset">Forgot password?</a>
+    </div>
+  </form>
+
+  <form id="form-signup" class="login-form" autocomplete="on" novalidate>
+    <label for="signup-email">Email</label>
+    <input id="signup-email" name="email" type="email" required autocomplete="email" inputmode="email">
+    <label for="signup-password">Password (min 8 characters)</label>
+    <input id="signup-password" name="password" type="password" required autocomplete="new-password" minlength="8">
+    <button type="submit">Create account</button>
+    <div class="login-helper">
+      Already have an account? <a data-mode="signin">Sign in</a>
+    </div>
+  </form>
+
+  <form id="form-reset" class="login-form" autocomplete="on" novalidate>
+    <label for="reset-email">Email</label>
+    <input id="reset-email" name="email" type="email" required autocomplete="email" inputmode="email">
+    <button type="submit">Send reset link</button>
+    <div class="login-helper">
+      Remembered it? <a data-mode="signin">Sign in</a>
+    </div>
+  </form>
+
+  <form id="form-newpw" class="login-form" autocomplete="off" novalidate>
+    <label for="newpw-password">Set a new password (min 8 characters)</label>
+    <input id="newpw-password" name="password" type="password" required autocomplete="new-password" minlength="8">
+    <button type="submit">Save new password</button>
+  </form>
+
+  <div id="login-message" class="login-message" role="status" aria-live="polite"></div>
+
+  <div class="login-info">All connections encrypted via Supabase &amp; HTTPS</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script>
+  document.documentElement.classList.remove('auth-pending');
+
+  var forms   = document.querySelectorAll('.login-form');
+  var tabs    = document.querySelectorAll('.login-tabs button');
+  var message = document.getElementById('login-message');
+
+  // If already signed in, bounce to the post-login destination
+  function getRedirect() {
+    var params = new URLSearchParams(location.search);
+    var raw = params.get('redirect');
+    if (raw) {
+      try {
+        var decoded = decodeURIComponent(raw);
+        // Prevent open-redirect: only allow same-origin paths
+        if (decoded.charAt(0) === '/' && decoded.indexOf('//') !== 1) return decoded;
+        if (!/^https?:/i.test(decoded)) return decoded;
+      } catch (e) {}
+    }
+    return window.AUTH_CONFIG ? window.AUTH_CONFIG.LOGIN_REDIRECT : 'index.html';
+  }
+
+  function showMode(mode) {
+    forms.forEach(function (f) { f.classList.remove('active'); });
+    tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.mode === mode); });
+    var target = document.getElementById('form-' + mode);
+    if (target) target.classList.add('active');
+    clearMessage();
+  }
+
+  function setMessage(text, kind) {
+    message.className = 'login-message ' + (kind || 'error');
+    message.textContent = text;
+  }
+  function clearMessage() {
+    message.className = 'login-message';
+    message.textContent = '';
+  }
+
+  // Hide tabs based on config
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.AUTH_CONFIG) {
+      if (window.AUTH_CONFIG.ALLOW_SIGNUP === false) {
+        document.querySelector('[data-mode="signup"]').style.display = 'none';
+      }
+      if (window.AUTH_CONFIG.ALLOW_RESET === false) {
+        document.querySelector('[data-mode="reset"]').style.display = 'none';
+        document.querySelectorAll('a[data-mode="reset"]').forEach(function (a) { a.style.display = 'none'; });
+      }
+    }
+  });
+
+  // Tab + helper-link switching
+  document.body.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-mode]');
+    if (!el) return;
+    showMode(el.dataset.mode);
+  });
+
+  // Show "set new password" form when arriving via email reset link
+  window.addEventListener('auth:password-recovery', function () {
+    showMode('newpw');
+    setMessage('You can now set a new password.', 'success');
+  });
+
+  // Helper: disable buttons while submitting
+  function withBusy(form, label, fn) {
+    var btn = form.querySelector('button[type="submit"]');
+    var original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = label;
+    return fn().finally(function () {
+      btn.disabled = false;
+      btn.textContent = original;
+    });
+  }
+
+  // --- Sign in ---
+  document.getElementById('form-signin').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearMessage();
+    var email = this.email.value.trim();
+    var password = this.password.value;
+    withBusy(this, 'Signing in…', function () {
+      return window.SpainAuth.signIn(email, password).then(function (res) {
+        if (res.error) { setMessage(res.error.message); return; }
+        location.replace(getRedirect());
+      });
+    });
+  });
+
+  // --- Sign up ---
+  document.getElementById('form-signup').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearMessage();
+    var email = this.email.value.trim();
+    var password = this.password.value;
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters.');
+      return;
+    }
+    withBusy(this, 'Creating account…', function () {
+      return window.SpainAuth.signUp(email, password).then(function (res) {
+        if (res.error) { setMessage(res.error.message); return; }
+        if (res.data && res.data.user && !res.data.session) {
+          // Email confirmation required
+          setMessage('Check your email to confirm your account, then sign in.', 'success');
+          showMode('signin');
+        } else {
+          // Confirmation disabled — signed in immediately
+          location.replace(getRedirect());
+        }
+      });
+    });
+  });
+
+  // --- Password reset request ---
+  document.getElementById('form-reset').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearMessage();
+    var email = this.email.value.trim();
+    withBusy(this, 'Sending…', function () {
+      return window.SpainAuth.resetPassword(email).then(function (res) {
+        if (res.error) { setMessage(res.error.message); return; }
+        setMessage('Check your email for a password reset link.', 'success');
+      });
+    });
+  });
+
+  // --- Set new password after clicking email link ---
+  document.getElementById('form-newpw').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearMessage();
+    var password = this.password.value;
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters.');
+      return;
+    }
+    withBusy(this, 'Saving…', function () {
+      return window.SpainAuth.updatePassword(password).then(function (res) {
+        if (res.error) { setMessage(res.error.message); return; }
+        setMessage('Password updated. Redirecting…', 'success');
+        setTimeout(function () { location.replace(getRedirect()); }, 1200);
+      });
+    });
+  });
+
+  // If already signed in when landing here, skip the form entirely
+  setTimeout(function () {
+    if (window.SpainAuth) {
+      window.SpainAuth.getSession().then(function (session) {
+        if (session) location.replace(getRedirect());
+      });
+    }
+  }, 50);
+</script>
+</body>
+</html>
