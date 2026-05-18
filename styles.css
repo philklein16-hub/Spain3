@@ -318,3 +318,213 @@ section:last-of-type { border-bottom: none; }
   .transit-label { border-right: none; border-bottom: 1px solid var(--border); }
   .city-hero-content { padding: 60px 18px 40px; }
 }
+
+/* ============================================================
+   Itinerary Edit Layer (add/edit/delete custom items)
+   ============================================================ */
+.itinerary-edit-toolbar {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 900;
+  display: flex;
+  gap: 8px;
+  background: rgba(26, 31, 46, 0.95);
+  padding: 8px;
+  border-radius: 999px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--gold, #c98d2a);
+}
+.itinerary-edit-toolbar button {
+  border: none;
+  background: var(--gold, #c98d2a);
+  color: #1a1f2e;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+.itinerary-edit-toolbar button:hover { transform: translateY(-1px); }
+.itinerary-edit-toolbar .itinerary-edit-reset {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Edit affordances on activities — hidden until edit mode is on */
+.edit-activity-btn,
+.add-stop-btn {
+  display: none;
+}
+body.itinerary-editing .edit-activity-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--burgundy, #7a1c2e);
+  background: rgba(201, 141, 42, 0.12);
+  border: 1px solid rgba(201, 141, 42, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+body.itinerary-editing .edit-activity-btn:hover {
+  background: rgba(201, 141, 42, 0.25);
+}
+body.itinerary-editing .add-stop-btn {
+  display: inline-block;
+  margin: 8px 0 4px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1f2e;
+  background: var(--gold, #c98d2a);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+body.itinerary-editing .add-stop-btn:hover {
+  filter: brightness(0.95);
+}
+
+/* Hidden activities — only visible in edit mode (dimmed) */
+.activity.itinerary-hidden { display: none; }
+body.itinerary-editing .activity.itinerary-hidden {
+  display: block;
+  opacity: 0.4;
+  outline: 1px dashed rgba(122, 28, 46, 0.5);
+}
+
+/* User notes appended via the editor */
+.user-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(201, 141, 42, 0.10);
+  border-left: 3px solid var(--gold, #c98d2a);
+  border-radius: 6px;
+  font-style: italic;
+  color: #3a4a5c;
+}
+
+/* Custom user-added activity card */
+.activity.custom-activity {
+  border-left: 4px solid var(--gold, #c98d2a);
+  background: linear-gradient(135deg, rgba(201, 141, 42, 0.06), rgba(255, 255, 255, 0));
+}
+.activity.custom-activity::before {
+  content: "✦ Custom Stop";
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold, #c98d2a);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* Modal */
+.edit-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 24, 0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.edit-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 14px;
+  padding: 26px 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  border-top: 4px solid var(--gold, #c98d2a);
+}
+.edit-modal-title {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--burgundy, #7a1c2e);
+  font-size: 22px;
+}
+.edit-modal-form { display: flex; flex-direction: column; gap: 14px; }
+.edit-field { display: flex; flex-direction: column; gap: 4px; }
+.edit-field > span {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5a6577;
+}
+.edit-field input[type="text"],
+.edit-field textarea {
+  width: 100%;
+  padding: 9px 11px;
+  font-family: inherit;
+  font-size: 14px;
+  border: 1px solid #d6dae2;
+  border-radius: 8px;
+  background: #fafbfc;
+  resize: vertical;
+}
+.edit-field input[type="text"]:focus,
+.edit-field textarea:focus {
+  outline: none;
+  border-color: var(--gold, #c98d2a);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(201, 141, 42, 0.18);
+}
+.edit-field-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.edit-field-checkbox > span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  color: #3a4a5c;
+  font-weight: 500;
+}
+.edit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.edit-modal-actions button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.edit-btn-primary {
+  background: var(--burgundy, #7a1c2e);
+  color: #fff;
+}
+.edit-btn-primary:hover { filter: brightness(1.08); }
+.edit-btn-secondary {
+  background: #fff;
+  color: #3a4a5c;
+  border-color: #d6dae2;
+}
+.edit-btn-danger {
+  background: #fff;
+  color: #a02b3e;
+  border-color: #e2b6bd;
+}
+.edit-btn-danger:hover { background: #fbeef0; }
+
+.custom-actions { display: flex; }

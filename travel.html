@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel · Spain Anniversary Journey</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Hero */
+  .travel-hero {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 56px 24px 40px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+  }
+  .travel-hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .travel-hero .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .travel-hero .sub {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Section header inside the travel page */
+  .travel-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 40px 0 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .travel-section-header .icon {
+    font-size: 26px;
+    color: var(--gold);
+  }
+  .travel-section-header h2 {
+    font-family: Georgia, serif;
+    font-size: 1.7rem;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .travel-section-header .sub {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-left: auto;
+    font-weight: 500;
+  }
+
+  /* Flight / Train card */
+  .travel-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+  .travel-card .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .travel-card .badge {
+    background: var(--navy);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .travel-card.train .badge { background: var(--burgundy); }
+  .travel-card .badge-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 1px;
+  }
+  .travel-card .route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+  }
+  .travel-card .route-end {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .travel-card .route-end.right { text-align: right; align-items: flex-end; }
+  .travel-card .code {
+    font-family: Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .travel-card .city {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .travel-card .time {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .travel-card .terminal {
+    font-size: 11px;
+    color: var(--text-light);
+  }
+  .travel-card .middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--gold);
+  }
+  .travel-card .middle .vector {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .travel-card.train .middle .vector {
+    background: linear-gradient(to right, transparent, var(--burgundy), transparent);
+  }
+  .travel-card .duration {
+    font-size: 10px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+  }
+
+  .travel-card .footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    align-items: center;
+  }
+  .travel-card .flight-id {
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .travel-card .conf-code {
+    font-family: 'SF Mono', 'Courier New', monospace;
+    font-size: 12px;
+    background: var(--navy);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 3px;
+    border-left: 3px solid var(--gold);
+  }
+  .travel-card .meta-pill {
+    font-size: 12px;
+    color: var(--text-light);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .travel-card .meta-pill strong { color: var(--text); }
+
+  /* Lounge card */
+  .lounge-card {
+    background: #fdfaf2;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--slate);
+  }
+  .lounge-card.recommended {
+    border-left-color: var(--confirmed-green);
+    background: #f4faf4;
+  }
+  .lounge-card .lounge-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .lounge-card .lounge-name {
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .lounge-card .lounge-airport {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  .lounge-card .rec-pill {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: var(--confirmed-green);
+    color: white;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .lounge-card .access {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .lounge-card .caution {
+    background: #fff7f5;
+    border-left: 3px solid var(--alert-red);
+    padding: 8px 12px;
+    margin: 6px 0;
+    font-size: 12.5px;
+    color: #5e1020;
+    font-weight: 500;
+    border-radius: 0 3px 3px 0;
+  }
+  .lounge-card details {
+    margin-top: 8px;
+  }
+  .lounge-card details summary {
+    cursor: pointer;
+    color: var(--burgundy);
+    font-size: 12.5px;
+    font-weight: 600;
+    list-style: none;
+    user-select: none;
+  }
+  .lounge-card details summary::-webkit-details-marker { display: none; }
+  .lounge-card details summary::before { content: '▸ '; }
+  .lounge-card details[open] summary::before { content: '▾ '; }
+  .lounge-card .detail-rows {
+    margin-top: 10px;
+    display: grid;
+    gap: 8px;
+  }
+  .lounge-card .detail-rows .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .lounge-card .detail-rows .value {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .lounge-card .access-list {
+    margin: 4px 0;
+    padding-left: 18px;
+  }
+  .lounge-card .access-list li {
+    font-size: 12.5px;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  /* Passenger row */
+  .passenger-row {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .passenger-row:last-child { border-bottom: none; }
+  .passenger-row .name { font-weight: 600; color: var(--navy); }
+  .passenger-row .meta { color: var(--text-light); font-size: 12px; }
+
+  /* Important callout */
+  .travel-note {
+    background: #fcfaf5;
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 4px 4px 0;
+    margin: 10px 0 20px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .travel-note strong { color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 4px; }
+
+  @media (max-width: 600px) {
+    .travel-card .code { font-size: 1.8rem; }
+    .travel-card .route { grid-template-columns: 1fr; gap: 12px; }
+    .travel-card .route-end.right { text-align: left; align-items: flex-start; }
+    .travel-card .middle { flex-direction: row; }
+    .travel-card .middle .vector { width: 40px; }
+  }
+</style>
+<script src="auth-guard.js"></script>
+</head>
+<body>
+
+<div class="nav-wrapper">
+  <nav class="nav">
+    <a href="index.html" class="brand">✦ Spain 2026</a>
+    <a href="madrid.html">Madrid</a>
+    <a href="toledo.html">Toledo</a>
+    <a href="granada.html">Granada</a>
+    <a href="sevilla.html">Sevilla</a>
+    <a href="barcelona.html">Barcelona</a>
+    <a href="girona.html">Girona</a>
+    <a href="travel.html" class="active maps-link">✈ Travel</a>
+    <a href="dining.html" class="maps-link">✦ Dining</a>
+    <a href="map.html" class="maps-link">✦ Maps</a>
+  </nav>
+</div>
+
+<div class="travel-hero">
+  <div class="eyebrow">Getting Around</div>
+  <h1>Travel</h1>
+  <div class="sub">2 flights · 2 trains · Lounges at JFK and Barcelona</div>
+</div>
+
+<div class="container">
+
+  <!-- ====== FLIGHTS ====== -->
+  <div class="travel-section-header">
+    <span class="icon">✈</span>
+    <h2>Flights</h2>
+    <span class="sub">JFK → Madrid outbound · Barcelona → JFK return</span>
+  </div>
+
+  <!-- Outbound -->
+  <div class="travel-card">
+    <div class="top-row">
+      <span class="badge">↗ Outbound</span>
+      <span class="badge-date">Saturday, July 25, 2026</span>
+    </div>
+
+    <div class="route">
+      <div class="route-end">
+        <div class="city">New York</div>
+        <div class="code">JFK</div>
+        <div class="time">20:40</div>
+        <div class="terminal">Terminal 8 · Zones 6–7</div>
+      </div>
+      <div class="middle">
+        <div class="vector"></div>
+        <div style="font-size:18px;">✈</div>
+        <div class="vector"></div>
+        <div class="duration">Overnight</div>
+      </div>
+      <div class="route-end right">
+        <div class="city">Madrid</div>
+        <div class="code">MAD</div>
+        <div class="time">10:15 Sun Jul 26</div>
+        <div class="terminal">Madrid Barajas</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="flight-id">Iberia IB0326</span>
+      <span class="meta-pill"><strong>Arrive by:</strong> 7:30 PM JFK (3 hrs early)</span>
+      <span class="meta-pill"><strong>Baggage:</strong> 2 checked / passenger (23kg)</span>
+    </div>
+
+    <div class="travel-note">
+      <strong>Important</strong>
+      Phil and Sarah are on <strong>separate ticket numbers with different fare classes</strong>. Both must check in independently. Phil's fare is an award/redemption ticket (UFF class). Sarah's is full paid Business (ILWTC4S5). Check in online as early as possible — seat selection is fare-dependent.
+    </div>
+
+    <!-- Passengers -->
+    <div style="margin-top: 16px;">
+      <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:8px;">Tickets</div>
+      <div class="passenger-row">
+        <span>👤</span>
+        <div>
+          <div class="name">Phil Klein</div>
+          <div class="meta">Ticket 075-2530732990 · Fare UFF (award) · EUR 108.72 (taxes)</div>
+        </div>
+        <span class="conf-code">7PAB5T</span>
+      </div>
+      <div class="passenger-row">
+        <span>👤</span>
+        <div>
+          <div class="name">Sarah Klein</div>
+          <div class="meta">Ticket 075-2530749861 · Fare ILWTC4S5 (Business) · EUR 2,219.25</div>
+        </div>
+        <span class="conf-code">NX3XX</span>
+      </div>
+    </div>
+
+    <!-- JFK Lounges -->
+    <div style="margin-top: 24px;">
+      <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:12px;">JFK Lounge Options</div>
+
+      <div class="lounge-card recommended">
+        <div class="lounge-head">
+          <span class="lounge-name">Greenwich Lounge</span>
+          <span class="lounge-airport">JFK Terminal 8</span>
+          <span class="rec-pill">Recommended</span>
+        </div>
+        <div class="access">Same terminal as your gate — most convenient</div>
+        <details>
+          <summary>Show details</summary>
+          <div class="detail-rows">
+            <div>
+              <div class="label">Access</div>
+              <ul class="access-list">
+                <li>Sarah: COMPLIMENTARY as Business Class passenger on IB0326</li>
+                <li>Phil: Verify at check-in — award ticket (UFF) may qualify. If not, Priority Pass or $50 guest pass applies.</li>
+              </ul>
+            </div>
+            <div><div class="label">Location</div><div class="value">Airside, Terminal 8, Concourse B. After security — follow signs.</div></div>
+            <div><div class="label">Hours</div><div class="value">Daily from early morning through last departure. Open well before your 20:40 flight.</div></div>
+            <div><div class="label">Amenities</div><div class="value">Hot food buffet (good vegetarian options — Vietnamese pork, chili tofu, vegetable stir-fry), full bar, wine, spirits, soft seating, Wi-Fi, charging stations.</div></div>
+            <div><div class="label">Verdict</div><div class="value">Solid food and convenient. No shower suites. Can get busy summer evenings — arrive before 7pm for best seating.</div></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-head">
+          <span class="lounge-name">Amex Centurion Lounge</span>
+          <span class="lounge-airport">JFK Terminal 4</span>
+        </div>
+        <div class="access">Both Phil &amp; Sarah free with Amex Platinum</div>
+        <div class="caution">⚠ Requires inter-terminal AirTrain — allow 60–90 min total. Entry only within 5 hrs of departure (new July 2026 policy).</div>
+        <details>
+          <summary>Show details</summary>
+          <div class="detail-rows">
+            <div>
+              <div class="label">Access</div>
+              <ul class="access-list">
+                <li>Both: COMPLIMENTARY with Amex Platinum card. Present card + boarding pass + ID. Guest on same flight = free.</li>
+                <li>From July 8, 2026: guests must travel on the SAME flight as cardholder — both on IB0326, so satisfied.</li>
+              </ul>
+            </div>
+            <div><div class="label">Location</div><div class="value">Terminal 4 — NOT Terminal 8. You MUST leave T8 security → AirTrain to T4 → clear security again → reverse process to return for boarding.</div></div>
+            <div><div class="label">Hours</div><div class="value">Daily 5am–10pm. Entry within 5 hours of departure only. For 20:40 flight: entry from 3:40 PM.</div></div>
+            <div><div class="label">Amenities</div><div class="value">Two floors, multiple full bars including the '1850' speakeasy, hot/cold buffet, shower suites, Wi-Fi, private rooms. JFK's finest lounge.</div></div>
+            <div><div class="label">Verdict</div><div class="value">Exceptional but the inter-terminal journey is significant inconvenience for 20:40 departure. If you arrive at JFK by 5–6pm, worth it. Otherwise, stay at Greenwich.</div></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-head">
+          <span class="lounge-name">Priority Pass Lounges</span>
+          <span class="lounge-airport">JFK Terminal 8</span>
+        </div>
+        <div class="access">Amex Platinum benefit — enroll first</div>
+        <details>
+          <summary>Show details</summary>
+          <div class="detail-rows">
+            <div>
+              <div class="label">Access</div>
+              <ul class="access-list">
+                <li>Amex Platinum includes Priority Pass Select — enroll at americanexpress.com/prioritypass before travel</li>
+                <li>Greenwich Lounge accessible via airline entitlement; check Priority Pass app for additional T8 options</li>
+              </ul>
+            </div>
+            <div><div class="label">Best Use</div><div class="value">Most valuable on the BCN return journey (Sala VIP Joan Miró) — see Return Flight below.</div></div>
+            <div><div class="label">Guest Policy</div><div class="value">Unlimited free for cardholder. Guests ~$35/visit unless enrolled via card.</div></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return -->
+  <div class="travel-card">
+    <div class="top-row">
+      <span class="badge">↘ Return</span>
+      <span class="badge-date">Sunday, August 9, 2026</span>
+    </div>
+
+    <div class="route">
+      <div class="route-end">
+        <div class="city">Barcelona</div>
+        <div class="code">BCN</div>
+        <div class="time">10:55</div>
+        <div class="terminal">Terminal 1 · Gates D/E (Non-Schengen)</div>
+      </div>
+      <div class="middle">
+        <div class="vector"></div>
+        <div style="font-size:18px;">✈</div>
+        <div class="vector"></div>
+        <div class="duration">~9h 41m</div>
+      </div>
+      <div class="route-end right">
+        <div class="city">New York</div>
+        <div class="code">JFK</div>
+        <div class="time">13:36</div>
+        <div class="terminal">Same-day arrival</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="flight-id">Delta DL0129</span>
+      <span class="conf-code">JQP7XE</span>
+      <span class="meta-pill"><strong>Arrive by:</strong> 8:30 AM BCN (Blacklane 7:00 AM)</span>
+    </div>
+
+    <div class="travel-note">
+      <strong>Logistics</strong>
+      Online check-in opens Aug 8 ~10:55am — check in the evening before and download boarding passes. After check-in: Passport Control (non-EU line, 20–30 min in August) → Security → Gates D/E.
+    </div>
+
+    <!-- BCN Lounges -->
+    <div style="margin-top: 24px;">
+      <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:12px;">Barcelona Lounge Options</div>
+
+      <div class="lounge-card recommended">
+        <div class="lounge-head">
+          <span class="lounge-name">Sala VIP Joan Miró</span>
+          <span class="lounge-airport">BCN T1 · Non-Schengen</span>
+          <span class="rec-pill">Recommended</span>
+        </div>
+        <div class="access">Both Phil &amp; Sarah free via Amex Priority Pass</div>
+        <details>
+          <summary>Show details</summary>
+          <div class="detail-rows">
+            <div>
+              <div class="label">Access</div>
+              <ul class="access-list">
+                <li>BOTH: COMPLIMENTARY via Amex Platinum Priority Pass</li>
+                <li>Present boarding passes + Priority Pass card (or Amex app) + photo ID</li>
+              </ul>
+            </div>
+            <div><div class="label">Location</div><div class="value">After Passport Control → follow signs to Gates D &amp; E (non-Schengen) → first set of stairs in front of Burger King (or lift) → down to lounge. Follow VIP signs.</div></div>
+            <div><div class="label">Hours</div><div class="value">Daily 06:00–21:00. Enter up to 4 hrs before departure. Blacklane drops you at 8:30 AM — perfect timing.</div></div>
+            <div><div class="label">Amenities</div><div class="value">Hot buffet, cold food, bar with wines &amp; spirits, high-speed Wi-Fi, shower rooms (bookable), private meeting room, work desks. Modern design.</div></div>
+            <div><div class="label">Cautions</div><div class="value">Must be past passport control — cannot return to shops after. Non-Schengen only (DL0129 to JFK qualifies).</div></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-head">
+          <span class="lounge-name">Premium VIP Lounge</span>
+          <span class="lounge-airport">BCN T1</span>
+        </div>
+        <div class="access">Backup if Joan Miró is at capacity</div>
+        <details>
+          <summary>Show details</summary>
+          <div class="detail-rows">
+            <div>
+              <div class="label">Access</div>
+              <ul class="access-list">
+                <li>Amex Platinum Priority Pass — complimentary for cardholder + 1 guest</li>
+                <li>Day Pass €48/adult if not using Priority Pass</li>
+              </ul>
+            </div>
+            <div><div class="label">Location</div><div class="value">Terminal 1. Accessible for intercontinental non-Schengen flights — same category as DL0129.</div></div>
+            <div><div class="label">Amenities</div><div class="value">Hot and cold buffet, bar service, Wi-Fi, comfortable seating. Similar quality to Joan Miró.</div></div>
+            <div><div class="label">When to use</div><div class="value">Solid alternative if Joan Miró is full — can happen on busy summer Sunday mornings.</div></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== TRAINS ====== -->
+  <div class="travel-section-header">
+    <span class="icon">🚆</span>
+    <h2>Trains</h2>
+    <span class="sub">High-speed AVE between Spanish cities</span>
+  </div>
+
+  <!-- Madrid → Granada -->
+  <div class="travel-card train">
+    <div class="top-row">
+      <span class="badge">RENFE AVE</span>
+      <span class="badge-date">Thursday, July 30, 2026</span>
+    </div>
+
+    <div class="route">
+      <div class="route-end">
+        <div class="city">Madrid</div>
+        <div class="code">MAD</div>
+        <div class="time">13:35</div>
+        <div class="terminal">Puerta de Atocha-Almudena</div>
+      </div>
+      <div class="middle">
+        <div class="vector"></div>
+        <div style="font-size:18px;">🚆</div>
+        <div class="vector"></div>
+        <div class="duration">~3h 55m</div>
+      </div>
+      <div class="route-end right">
+        <div class="city">Granada</div>
+        <div class="code">GRX</div>
+        <div class="time">~17:30</div>
+        <div class="terminal">Granada Station</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="flight-id">BIRD (high-speed AVE)</span>
+      <span class="conf-code">F7TR2D</span>
+      <span class="meta-pill"><strong>Paid:</strong> €181.80</span>
+      <span class="meta-pill"><strong>Tickets:</strong> 2</span>
+    </div>
+
+    <div class="travel-note">
+      <strong>Good to know</strong>
+      Tickets available in Renfe App, Passbook/Passwallet, or printed. Also available at station self-service machines.
+    </div>
+  </div>
+
+  <!-- Sevilla → Barcelona -->
+  <div class="travel-card train">
+    <div class="top-row">
+      <span class="badge">RENFE AVE</span>
+      <span class="badge-date">Tuesday, August 4, 2026</span>
+    </div>
+
+    <div class="route">
+      <div class="route-end">
+        <div class="city">Sevilla</div>
+        <div class="code">SVQ</div>
+        <div class="time">08:37</div>
+        <div class="terminal">Santa Justa</div>
+      </div>
+      <div class="middle">
+        <div class="vector"></div>
+        <div style="font-size:18px;">🚆</div>
+        <div class="vector"></div>
+        <div class="duration">6h 17m · 0 changes</div>
+      </div>
+      <div class="route-end right">
+        <div class="city">Barcelona</div>
+        <div class="code">BCN</div>
+        <div class="time">14:54</div>
+        <div class="terminal">Barcelona Sants</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="flight-id">Renfe AVE 03943</span>
+      <span class="conf-code">9VLUZN</span>
+      <span class="meta-pill"><strong>Paid:</strong> $243.18</span>
+      <span class="meta-pill"><strong>Class:</strong> Elige Confort (First Class equiv.)</span>
+    </div>
+
+    <div class="travel-note">
+      <strong>Seats</strong>
+      Carriage 23 · Phil 3B · Sarah 3C. eTickets on phone or printed A4 — bring photo ID to board. Exchangeable: €0 first change, €10 subsequent. Refundable at 70% up to 5 min before departure. Includes free Cercanías travel up to 4 hrs before departure and 4 hrs after arrival.
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="ornament">✦</div>
+  <div class="footer-line">Spain Anniversary Journey · Travel itinerary</div>
+  <div>Phil &amp; Sarah Klein · July 25 – August 9, 2026</div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop">↑</a>
+<script>
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+</script>
+</body>
+</html>
